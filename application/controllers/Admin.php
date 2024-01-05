@@ -43,10 +43,9 @@
 				$this->form_validation->set_rules('nip', 'NIP', 'required|trim|min_length[5]');
 				$this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim|min_length[5]');
 				$this->form_validation->set_rules('pangkat', 'Pangkat', 'required|trim');
-				$this->form_validation->set_rules('unit_kerja', 'Unit Kerja', 'required|trim|min_length[5]');
+				$this->form_validation->set_rules('unit_kerja', 'Unit Kerja', 'required|trim|min_length[3]');
 				$this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim');
-				$this->form_validation->set_rules('atasan1', 'Atasan Langsung', 'required|trim|min_length[5]');
-				$this->form_validation->set_rules('atasan2', 'Atasan dari Atasan Langsung', 'required|trim|min_length[5]');
+				$this->form_validation->set_rules('atasan', 'Atasan Langsung', 'trim');
 				$this->form_validation->set_rules('tugas_pokok', 'Tugas Pokok', 'required|trim|min_length[5]');
 				$this->form_validation->set_rules('kata_sandi', 'Kata Sandi', 'required|trim|min_length[5]');
 
@@ -62,8 +61,9 @@
 					$data['user']    = $this->Model_user->getAllUserById($nip);
 					$data['pegawai'] = $this->Model_pegawai->getAllPegawaiById($nip);
 					$data['laporan'] = $this->Model_laporan->getAllLaporanById($nip);
+					$data_tambah['semua_atasan'] = $this->Model_pegawai->getAllPegawaiTanpaAtasan();
 					$this->load->view('static/header', $data);
-					$this->load->view('admin/tambah');
+					$this->load->view('admin/tambah', $data_tambah);
 					$this->load->view('static/footer');
 				} else {
 					$this->Model_user->insertUser();

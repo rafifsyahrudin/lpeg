@@ -8,8 +8,7 @@
 				'peg_pangkat' => htmlspecialchars($this->input->post('pangkat', true)),
 				'peg_unit_kerja' => htmlspecialchars($this->input->post('unit_kerja', true)),
 				'peg_jabatan' => htmlspecialchars($this->input->post('jabatan', true)),
-				'peg_atasan' => htmlspecialchars($this->input->post('atasan1', true)),
-				'peg_atasan2' => htmlspecialchars($this->input->post('atasan2', true)),
+				'peg_atasan' => htmlspecialchars($this->input->post('atasan', true)) == "" ? NULL : htmlspecialchars($this->input->post('atasan', true)),
 				'peg_tugas_pokok' => htmlspecialchars($this->input->post('tugas_pokok', true))
 			];
 
@@ -43,6 +42,7 @@
 		    	$this->db->select('*');
 				$this->db->from('users');
 				$this->db->join('pegawai', 'users.user_nip = pegawai.peg_nip');
+				// $this->db->join('pegawai as atasan', 'pegawai.peg_atasan = atasan.peg_id', 'left');
 				$query = $this->db->get();
 				return $query->result_array();
 			} elseif ( !empty($nip) ) {
@@ -60,7 +60,6 @@
 			    		"peg_unit_kerja" => $query2[0]['peg_unit_kerja'],
 			    		"peg_jabatan" => $query2[0]['peg_jabatan'],
 			    		"peg_atasan" => $query2[0]['peg_atasan'],
-			    		"peg_atasan2" => $query2[0]['peg_atasan2'],
 			    		"peg_tugas_pokok" => $query2[0]['peg_tugas_pokok'],
 			    	]
 			    ];
@@ -68,4 +67,8 @@
 				return $query;
 			}
 	    }
+
+		public function getAllPegawaiTanpaAtasan() {
+			return $this->db->where("peg_atasan", NULL)->get('pegawai')->result_array();
+		}
 	}

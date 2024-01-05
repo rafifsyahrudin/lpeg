@@ -43,7 +43,7 @@
 			$nip = $this->session->user;
 			$data['user']    = $this->Model_user->getAllUserById($nip);
 			$data['pegawai'] = $this->Model_pegawai->getAllPegawaiById($nip);
-			$data['atasan1'] = $this->Model_pegawai->getAllPegawaiById($data['pegawai'][0]['atasan1']);
+			$data['atasan1'] = $this->Model_pegawai->getAllPegawaiById($data['pegawai'][0]['peg_atasan']);
 			$data['atasan2'] = $this->Model_pegawai->getAllPegawaiById($data['pegawai'][0]['atasan2']);
 			$data['rekapan']   = $this->Model_laporan->getAllRekapan($nip);
 			echo var_dump($data);

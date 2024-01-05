@@ -68,16 +68,13 @@ Konten (isi)
               <div class="form-group">
                 <label for="atasan1" class="col-sm-3 control-label">Atasan Lansung</label>
                 <div class="col-sm-9">
-                  <input name="atasan1" type="text" class="form-control" id="atasan1" placeholder="Masukan Nama Atasan Lansung.." required>
+                  <select id="atasan" name="atasan" class="form-control">
+                    <option value=""></option>
+                    <?php foreach($semua_atasan as $atasan) : ?>
+                      <option value="<?=$atasan['peg_id']?>"><?=$atasan['peg_nama']?></option>
+                      <?php endforeach;?>
+                  </select>
                   <?= form_error('atasan1', '<small class="text-danger">', '</small>') ?>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="atasan2" class="col-sm-3 control-label">Atasan dari Atasan Langsung</label>
-                <div class="col-sm-9">
-                  <input name="atasan2" type="text" class="form-control" id="atasan2" placeholder="Masukan Nama Atasan dari Atasan Lansung.." required>
-                  <?= form_error('atasan2', '<small class="text-danger">', '</small>') ?>
                 </div>
               </div>
 
@@ -92,7 +89,7 @@ Konten (isi)
               <div class="form-group">
                 <label for="kata_sandi" class="col-sm-3 control-label">Kata Sandi</label>
                 <div class="col-sm-9">
-                  <input name="kata_sandi" type="text" class="form-control" id="kata_sandi" value="infokom">
+                  <input name="kata_sandi" type="password" class="form-control" id="kata_sandi">
                   <?= form_error('kata_sandi', '<small class="text-danger">', '</small>') ?>
                 </div>
               </div>
