@@ -105,7 +105,9 @@ Konten (isi)
           <h4 class="row"> <small class="col-lg-3">Pangkat</small> <b class="col-lg-9 info-box-text"><?= $pgw['peg_pangkat']; ?></b> </h4>
           <h4 class="row"> <small class="col-lg-3">Unit Kerja</small> <b class="col-lg-9 info-box-text"><?= $pgw['peg_unit_kerja']; ?></b> </h4>
           <h4 class="row"> <small class="col-lg-3">Tugas Pokok</small> <b class="col-lg-9 info-box-text"><?= $pgw['peg_tugas_pokok']; ?></b> </h4>
-          <h4 class="row"> <small class="col-lg-3">Atasan</small> <b class="col-lg-9 info-box-text"><?= "ggwp" ?></b> </h4>
+          <?php if (!empty($pgw['nama_atasan'])) { ?>
+          <h4 class="row"> <small class="col-lg-3">Atasan</small> <b class="col-lg-9 info-box-text"><?= $pgw['nama_atasan'] ?></b> </h4>
+          <?php } ?>
           <!-- <h4 class="row"> <small class="col-lg-3">Atasan Dari Atasan</small> <b class="col-lg-9 info-box-text"><?//= $pgw['atasan2']; ?></b> </h4> -->
         </div>
         <div class="modal-footer">

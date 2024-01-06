@@ -39,10 +39,10 @@
 	    public function getAllPegawai(){
 	    	$nip = $this->input->post('nip');
 	    	if( empty($nip) ){
-		    	$this->db->select('*');
+		    	$this->db->select('users.*, pegawai.*, atasan.peg_nama as nama_atasan');
 				$this->db->from('users');
 				$this->db->join('pegawai', 'users.user_nip = pegawai.peg_nip');
-				// $this->db->join('pegawai as atasan', 'pegawai.peg_atasan = atasan.peg_id', 'left');
+				$this->db->join('pegawai as atasan', 'pegawai.peg_atasan = atasan.peg_id', 'left');
 				$query = $this->db->get();
 				return $query->result_array();
 			} elseif ( !empty($nip) ) {

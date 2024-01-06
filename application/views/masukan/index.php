@@ -12,18 +12,17 @@ Konten (isi)
     <div class="row">
       <div class="col-lg-12">
         <!-- Pesan Singkat -->
-        <?= $this->session->flashdata('pesan')?>
+        <?= $this->session->flashdata('pesan') ?>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="box box-primary">
+    <div id="container_laporan" class="row box box-primary" style="padding: 1.5rem;">
+      <form id="card_laporan" class="col-md-12">
+        <div class="panel panel-default">
           <div class="box-header box-solid with-border bg-gray">
-            <h3 class="box-title">Tulis Laporan</h3>
+            <h3 class="box-title">Laporan</h3>
           </div>
-
-          <form action="" method="post" class="form-horizontal">
+          <div class="form-horizontal">
             <input type="hidden" name="nip" value="<?= $this->session->user; ?>">
             <div class="box-body">
               <div class="form-group">
@@ -90,16 +89,51 @@ Konten (isi)
                   <?= form_error('keterangan', '<small class="text-danger">', '</small>') ?>
                 </div>
               </div>
-
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-primary">Simpan Laporan</button>
-                </div>
-              </div>
             </div>
-          </form>
+          </div>
+        </div>
+      </form>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6">
+            <button id="btn_tambah_laporan" type="button" class="btn btn-primary" onclick="tambahLaporanLainnya()">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah Laporan Lainnya
+            </button>
+          </div>
+          <div class="col-md-6" style="display: flex;">
+            <button id="btn_tambah_laporan" type="button" class="btn btn-success" onclick="simpanLaporan()" style="margin-left: auto;">
+              <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Simpan
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </section>
+  <script>
+    function tambahLaporanLainnya() {
+      const cardLaporan = document.querySelectorAll("#card_laporan")[0]
+      const containerLaporan = document.querySelector("#container_laporan")
+      containerLaporan.insertBefore(cardLaporan.cloneNode(true), containerLaporan.lastElementChild)
+    }
+
+    function simpanLaporan() {
+      const listLaporan = $("form#card_laporan").toArray().map(function(v) {
+        return $(v).serializeArray().reduce((acc, cur) => {
+          acc[cur.name] = cur.value
+          return acc
+        }, {})
+      })
+
+      console.log(listLaporan)
+
+      $.ajax({
+        url: 'buat_laporan_bulanan',
+        method: 'POST',
+        data: listLaporan,
+        success: function() {
+          console.log("ok")
+        }
+      })
+    }
+  </script>
 </div>
